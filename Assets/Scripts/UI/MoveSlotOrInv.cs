@@ -7,7 +7,7 @@ using System;
 public class MoveSlotOrInv : MonoBehaviour
 {
     public Blueprint blueprint;
-    private int nps; //nummber or pressed slot
+    private int nps; //nummber of pressed slot
     private GameObject gops; //game object of pressed slot
     private bool pressed = false;
     private Vector3 mousePos; //position of mouse
@@ -59,7 +59,7 @@ public class MoveSlotOrInv : MonoBehaviour
                 }
                 else spiritOfBuild = Instantiate(blueprint.items[blueprint.invId[nps]].image);
                 verticalyMovement = true;
-                float hwoc = sr.widthCell / 2;
+                float hwoc = (float)sr.widthCell / 2;
                 Vector3 posOfCell; //position cell in screen point
                 for (int i = 0; i < blueprint.cells.Length; i++)
                 {
@@ -83,11 +83,11 @@ public class MoveSlotOrInv : MonoBehaviour
             }
         }
         float posX = cam.WorldToScreenPoint(panelRT.position).x;
-        if (posX > panelRT.sizeDelta.x / 1080 * sr.widthScreen / 2)
-            panelRT.position = new Vector2(cam.ScreenToWorldPoint(new Vector2(panelRT.sizeDelta.x / 1080 * sr.widthScreen / 2, 0)).x,
+        if (posX > panelRT.sizeDelta.x / 2)
+            panelRT.position = new Vector2(cam.ScreenToWorldPoint(new Vector2(panelRT.sizeDelta.x / 2, 0)).x,
                 panelRT.position.y);
-        if (posX < panelRT.sizeDelta.x / 1080 * sr.widthScreen / -2 + sr.widthScreen)
-            panelRT.position = new Vector2(cam.ScreenToWorldPoint(new Vector2(panelRT.sizeDelta.x / 1080 * sr.widthScreen / -2 + sr.widthScreen, 0)).x,
+        if (posX < panelRT.sizeDelta.x / -2 + sr.widthScreen)
+            panelRT.position = new Vector2(cam.ScreenToWorldPoint(new Vector2(panelRT.sizeDelta.x / -2 + (float)sr.widthScreen, 0)).x,
                 panelRT.position.y);
         panelRT.localPosition = new Vector3(panelRT.localPosition.x, panelRT.localPosition.y, 0);
 
@@ -101,7 +101,7 @@ public class MoveSlotOrInv : MonoBehaviour
         } 
         if (count % 2 == 0) panelRT.sizeDelta = new Vector2(wc * (count / 2) + pc * (count / 2) + pc, panelRT.sizeDelta.y); //change width of inv panel
         else panelRT.sizeDelta = new Vector2(wc * (count / 2) + pc * (count / 2) + 2 * pc + wc, panelRT.sizeDelta.y);
-        if (panelRT.sizeDelta.x < sr.widthScreen) panelRT.sizeDelta = new Vector2(sr.widthScreen, panelRT.sizeDelta.y); //minimal width of inv panel
+        if (panelRT.sizeDelta.x < sr.widthScreen) panelRT.sizeDelta = new Vector2((float)sr.widthScreen, panelRT.sizeDelta.y); //minimal width of inv panel
     }
     public void OnClick(GameObject go)//*натиск*
     {

@@ -42,7 +42,7 @@ public class EnemyData : MonoBehaviour
                 for (int j = 0; j < blueprint.cells.Length; j++)
                 {
                     Vector2 cellPos = blueprint.cells[j].transform.position;
-                    float halfWidth = cam.WorldToScreenPoint(new Vector3(sr.widthCell, 0, 0)).x;
+                    float halfWidth = cam.WorldToScreenPoint(new Vector3((float)sr.widthCell, 0, 0)).x;
 
                     if (cellPos.x - halfWidth / 2 < tran.position.x && tran.position.x < cellPos.x + halfWidth / 2 &&
                         cellPos.y - halfWidth / 2 < tran.position.y && tran.position.y < cellPos.y + halfWidth / 2)
@@ -120,7 +120,7 @@ public class EnemyData : MonoBehaviour
                 for (int j = 0; j < blueprint.cells.Length; j++)
                 {
                     Vector2 cellPos = blueprint.cells[j].transform.position;
-                    float halfWidth = cam.WorldToScreenPoint(new Vector3(sr.widthCell, 0, 0)).x;
+                    float halfWidth = cam.WorldToScreenPoint(new Vector3((float)sr.widthCell, 0, 0)).x;
 
                     if (cellPos.x - halfWidth / 2 < tran.position.x && tran.position.x < cellPos.x + halfWidth / 2 &&
                         cellPos.y - halfWidth / 2 < tran.position.y && tran.position.y < cellPos.y + halfWidth / 2)

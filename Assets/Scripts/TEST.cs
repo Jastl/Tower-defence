@@ -6,13 +6,10 @@ public class TEST : MonoBehaviour
 {
     private SaveData saveData;
     private WavesData1 wavesData1;
-
-    private int a;
     private void Start()
     {
         saveData = GameObject.Find("Main Camera").GetComponent<SaveData>();
         wavesData1 = GameObject.Find("Main Camera").GetComponent<WavesData1>();
-        if (true) Debug.Log("JJJJJJJJJ");
     }
     private void Update()
     {
@@ -27,5 +24,4 @@ public class TEST : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.A)) wavesData1.startWave = false;
     }
-    //gljdukgsni
 }

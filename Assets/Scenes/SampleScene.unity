@@ -1969,7 +1969,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Other
+  m_Text: 'All
 
 '
 --- !u!222 &210457623
@@ -2067,7 +2067,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 221435089}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 519420043}
+        m_MethodName: Sorting
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &221435089
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2624,7 +2635,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 264047067}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 519420043}
+        m_MethodName: Sorting
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &264047067
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4043,7 +4065,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 402392352}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 519420043}
+        m_MethodName: Sorting
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &402392352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5289,7 +5322,7 @@ MonoBehaviour:
       type: 3}
   - name: Core
     id: 2
-    type: 0
+    type: 2
     image: {fileID: 0}
     maxLevel: 0
     tier: 1
@@ -5301,7 +5334,7 @@ MonoBehaviour:
     prefab: {fileID: 0}
   - name: Speed loader
     id: 3
-    type: 2
+    type: 1
     image: {fileID: 1141387826087589916, guid: 7fdcc76877c536440814b7628ce78650, type: 3}
     maxLevel: 200
     tier: 1
@@ -5314,7 +5347,7 @@ MonoBehaviour:
       type: 3}
   - name: Wall
     id: 4
-    type: 1
+    type: 2
     image: {fileID: 5847542808775156813, guid: b3390f9b9773900438f466224e92871d, type: 3}
     maxLevel: 200
     tier: 1
@@ -5342,13 +5375,13 @@ MonoBehaviour:
   cells: []
   net: {fileID: 1711680377}
   invSlots: []
-  inv2Slots: []
   img: []
-  img2: []
   invId: 
   empty: 
   tier: 
   lvl: 
+  inv2Slots: []
+  img2: []
   invPanel: {fileID: 1969797587}
   inv2Panel: {fileID: 1379691616}
   prefabSlot: {fileID: 6078247660680453360, guid: 3ff174bf284b9be49af675cc0747f371,
@@ -5473,6 +5506,7 @@ MonoBehaviour:
   building: {fileID: 519420037}
   inventory2: {fileID: 1081231391}
   enabledInv: 0
+  panelRT: {fileID: 1379691617}
 --- !u!114 &519420035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15172,8 +15206,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -1157.8}
-  m_SizeDelta: {x: 1014.9995, y: 1432.1956}
+  m_AnchoredPosition: {x: 0, y: -1180}
+  m_SizeDelta: {x: 1014.9995, y: 1000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1379691618
 MonoBehaviour:
@@ -20827,7 +20861,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1861291530}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 519420043}
+        m_MethodName: Sorting
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1861291530
 MonoBehaviour:
   m_ObjectHideFlags: 0

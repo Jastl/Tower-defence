@@ -10,14 +10,18 @@ public class Blueprint : MonoBehaviour
     public GameObject[] cells = new GameObject[0];//все клетки
     public GameObject net;//панель с клетками
 
+    //primitive inventory
     public GameObject[] invSlots = new GameObject[0];//все слоты инвентаря
-    public GameObject[] inv2Slots = new GameObject[0];//всі слоти продвинутого інвентарю
     public GameObject[] img = new GameObject[0];//картинки построек в инвентаре
-    public GameObject[] img2 = new GameObject[0];
     public int[] invId = new int[0];//айди построек в инвентаре
     public bool[] empty = new bool[0];//использован ли объект
     public int[] tier = new int[0];//тир
     public int[] lvl = new int[0];//уровень
+
+    //advanced inventory
+    public GameObject[] inv2Slots = new GameObject[0];//всі слоти продвинутого інвентарю
+    public GameObject[] img2 = new GameObject[0];
+
     public GameObject invPanel;//панель инвентаря
     public GameObject inv2Panel;
     public GameObject prefabSlot;//пример слота
@@ -105,7 +109,6 @@ public class Blueprint : MonoBehaviour
                         img2[i].transform.localScale = new Vector3(1, 1, 0);
                     }
                     img2[i].transform.position = inv2Slots[i].transform.position;
-                    inv2Slots[i].SetActive(true);
                     inv2Slots[i].GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
                     IndexOfSlots index = inv2Slots[i].GetComponent<IndexOfSlots>();
                     index.level = lvl[i].ToString();

@@ -4,25 +4,38 @@ using UnityEngine;
 
 public class ScreenRes : MonoBehaviour
 {
-    public float widthScreen = 1080;
-    public float heightScreen = 1920;
+    public double widthScreen = 1080;
+    public double heightScreen = 1920;
 
-    public float widthCell = 150;
-    public float widthSlot1 = 200;
-    public float widthSlot2 = 187;
+    public double widthCell = 150;
+    public double widthSlot1 = 200;
+    public double widthSlot2 = 187;
+
+    public GameObject Colliders;
+
     private void Start()
     {
         Resolution[] resolutions = Screen.resolutions;
         widthScreen = resolutions[resolutions.Length - 1].height;
         heightScreen = resolutions[resolutions.Length - 1].width;
-        widthCell = 150f / 1080 * widthScreen;
-        widthSlot1 = 200f / 1080 * widthScreen;
-        widthSlot2 = 187f / 1080 * widthScreen;
+        widthCell = SizeW(150);
+        widthSlot1 = SizeW(200);
+        widthSlot2 = SizeW(187);
     }
-    private void Update()
+    public double SizeH(double size) 
     {
-        widthCell = 150f / 1080 * widthScreen;
-        widthSlot1 = 200f / 1080 * widthScreen;
-        widthSlot2 = 187f / 1080 * widthScreen;
+        return (size / 1920 * heightScreen);
+    }
+    public double SizeW(double size)
+    {
+        return (size / 1080 * widthScreen);
+    }
+    public void SetActiveColiders(bool active)
+    {
+        Colliders.SetActive(active);
+    }
+    public void SetActiveColiders()
+    {
+        Colliders.SetActive(!Colliders.activeSelf);
     }
 }

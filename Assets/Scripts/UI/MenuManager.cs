@@ -12,6 +12,9 @@ public class MenuManager : MonoBehaviour
     public Canvas inventory;
     public Blueprint arrays;
     public Building building;
+    private InventoryUI invCode;
+    private ScreenRes sr;
+    private Camera cam;
     public void startBuild(bool x) //t - enable inventory / f - disable inventory
     {
         buildMode = !buildMode;
@@ -34,13 +37,16 @@ public class MenuManager : MonoBehaviour
 
     public GameObject inventory2;
     public bool enabledInv = false;
+    public RectTransform panelRT;
+
     public void OpenInventory()
     {
         enabledInv = !enabledInv;
         downMenu.enabled = !downMenu.enabled;
         inventory2.SetActive(!inventory2.activeSelf);
-        
-    }
+        invCode.Sorting(3);
+        sr.SetActiveColiders();
+}
 
     private void Update()
     {
@@ -48,6 +54,9 @@ public class MenuManager : MonoBehaviour
     }
     private void Start()
     {
+        cam = Camera.main;
+        sr = GameObject.Find("Main Camera").GetComponent<ScreenRes>();
+        invCode = GameObject.Find("Main Camera").GetComponent<InventoryUI>();
         Array.Resize(ref buildNet, arrays.cells.Length);
         for (int i = 0; i < buildNet.Length; i++)
         {

@@ -6,10 +6,11 @@ public class Building : MonoBehaviour
 {
     public Blueprint blueprint;
     public ScreenRes sr;
+
     public GameObject buildingMassive;
-    public GameObject panel;
+    public GameObject panel; //inventory panel
     public GameObject invMenu;
-    public GameObject moverMenu;
+    public GameObject moverMenu; //button which turn on/off p_inventory
     public bool deleteMod = false;
     private bool upInv = true;
     public void Buildingg(int num, int numC)
@@ -93,11 +94,11 @@ public class Building : MonoBehaviour
         upInv = x;
         if (x)
         {
-            invMenu.transform.position = Camera.main.ScreenToWorldPoint(new Vector2(540f / 1080 * sr.widthScreen, 550.8f / 1920 * sr.heightScreen));
+            invMenu.transform.position = Camera.main.ScreenToWorldPoint(new Vector2((float)sr.SizeW(540), (float)sr.SizeH(550.8)));
         }
         else
         {
-            invMenu.transform.position = Camera.main.ScreenToWorldPoint(new Vector2(540f / 1080 * sr.widthScreen, 105.8f / 1920 * sr.heightScreen));
+            invMenu.transform.position = Camera.main.ScreenToWorldPoint(new Vector2((float)sr.SizeW(540), (float)sr.SizeH(105.8)));
         }
         panel.SetActive(x);
         moverMenu.SetActive(y);
