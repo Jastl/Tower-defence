@@ -5524,6 +5524,7 @@ MonoBehaviour:
   widthCell: 150
   widthSlot1: 200
   widthSlot2: 187
+  Colliders: {fileID: 1711680377}
 --- !u!114 &519420036
 MonoBehaviour:
   m_ObjectHideFlags: 0
