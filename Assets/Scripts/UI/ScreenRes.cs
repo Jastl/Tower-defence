@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ScreenRes : MonoBehaviour
 {
@@ -17,15 +15,7 @@ public class ScreenRes : MonoBehaviour
 
     public GameObject Colliders;
 
-    private void Start()
-    {
-        //Resolution[] resolutions = Screen.resolutions;
-        //widthScreen = resolutions[resolutions.Length - 1].height;
-        //heightScreen = resolutions[resolutions.Length - 1].width;
-        widthCell = SizeW(150);
-        widthSlot1 = SizeW(200);
-        widthSlot2 = SizeW(200);
-    }
+    
     public float SizeH(double size) 
     {
         return ((float)size / 1920 * heightScreen);
@@ -41,5 +31,16 @@ public class ScreenRes : MonoBehaviour
     public void SetActiveColiders()
     {
         Colliders.SetActive(!Colliders.activeSelf);
+    }
+
+
+    private void Start()
+    {
+        //Resolution[] resolutions = Screen.resolutions;
+        //widthScreen = resolutions[resolutions.Length - 1].height;
+        //heightScreen = resolutions[resolutions.Length - 1].width;
+        widthCell = SizeW(150);
+        widthSlot1 = SizeW(200);
+        widthSlot2 = SizeW(200);
     }
 }

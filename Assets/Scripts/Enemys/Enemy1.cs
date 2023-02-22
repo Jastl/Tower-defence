@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy1 : MonoBehaviour
@@ -10,9 +9,9 @@ public class Enemy1 : MonoBehaviour
     private LayerMask layerMask;
     private Transform tran;
 
-    public GameObject target;          
+    private GameObject target;          
     private int id;
-    public int timer = 0;
+    private int timer = 0;
     private int[] road = new int[0];
        
     private void Update()

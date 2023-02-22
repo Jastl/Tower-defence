@@ -1,28 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnemyData : MonoBehaviour
 {
-    public float hp; //health points
-    public float maxHp; //maximum health points
-    public float startXScale; //
-    public float damage; 
-    public int id;
-
-    private GameObject lineOfHealth; //a line that shows the number of health points
-    public int[] road = new int[0]; //the way of this enemy
-    public Vector2 goal = new Vector2(0, 0); //the goal of this enemy
-    public bool dontMove = false; //false - enemy can move / true - enemy can't move
-
     private Enemys enemys;
     private SearchRoad sroad;
     private Blueprint blueprint;
     private ScreenRes sr;
-    private float widthEnemy; //the scale of the enemy's diagonal
     private Camera cam;
     private Transform tran;
     private LayerMask layerMask;
+
+    private GameObject lineOfHealth; //a line that shows the number of health points
+
+    private Vector2 goal = new Vector2(0, 0); //the goal of this enemy
+    public int[] road = new int[0]; //the way of this enemy
+    public  int id;
+    private float hp; //health points
+    private float maxHp; //maximum health points
+    private float startXScale; //
+    private float damage;
+    private float widthEnemy; //the scale of the enemy's diagonal
+    public bool dontMove = false; //false - enemy can move / true - enemy can't move
+    
     private void Start()
     {
         enemys = GameObject.Find("Main Camera").GetComponent<Enemys>();

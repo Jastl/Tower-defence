@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SortLvlTier : MonoBehaviour
 {
@@ -10,14 +8,11 @@ public class SortLvlTier : MonoBehaviour
     public GameObject arrowLvlDown;
     public GameObject arrowTierUp;
     public GameObject arrowTierDown;
+
     private int statusSortLvl = 1;
     private int statusSortTier = 0;
 
-    private void Start()
-    {
-        IU = GameObject.Find("Main Camera").GetComponent<InventoryUI>();
 
-    }
     public void SortLvlButton() //button of sort_lvl has been pressed
     {
         if (statusSortLvl < 2) statusSortLvl++;
@@ -75,5 +70,11 @@ public class SortLvlTier : MonoBehaviour
             IU.Sorting(IU.currentSortType, "tier", 1);
             statusSortLvl = 0;
         }
+    }
+
+
+    private void Start()
+    {
+        IU = GameObject.Find("Main Camera").GetComponent<InventoryUI>();
     }
 }

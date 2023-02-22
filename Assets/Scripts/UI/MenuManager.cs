@@ -1,26 +1,31 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 using System;
 
 public class MenuManager : MonoBehaviour
 {
-    public bool buildMode = false;
-    public GameObject[] buildNet = new GameObject[0];
-    public Canvas downMenu;
-    public Canvas inventory;
     public Blueprint arrays;
     public Building building;
     private InventoryUI invCode;
     private ScreenRes sr;
     private InventoryUI IU;
     private SortLvlTier slt;
+
+    public Canvas downMenu;
+    public Canvas inventory;
+    public GameObject inventory2;
+    public RectTransform panelRT;
+
+    public GameObject[] buildNet = new GameObject[0];
+    public bool buildMode = false;
+    public bool enabledInv = false;
+
+
     public void startBuild(bool x) //t - enable inventory / f - disable inventory
     {
         buildMode = !buildMode;
         downMenu.enabled = !x;//вимкнути нижнє меню
         inventory.enabled = x;//ввімкнути відображення предметів
+
         for (int i = 0; i < buildNet.Length; i++)
         {
             buildNet[i].SetActive(x);
@@ -36,10 +41,6 @@ public class MenuManager : MonoBehaviour
         }
     }
 
-    public GameObject inventory2;
-    public bool enabledInv = false;
-    public RectTransform panelRT;
-
     public void OpenInventory()
     {
         enabledInv = !enabledInv;
@@ -50,12 +51,13 @@ public class MenuManager : MonoBehaviour
         IU.currentSortType = 3;
         slt.SortLvl();
         slt.SortTier();
-}
+    }
 
     private void Update()
     {
         if (!buildMode) for (int i = 0; i < arrays.invSlots.Length; i++) { arrays.invSlots[i].SetActive(false); }
     }
+
     private void Start()
     {
         sr = GameObject.Find("Main Camera").GetComponent<ScreenRes>();

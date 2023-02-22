@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Building : MonoBehaviour
 {
@@ -11,8 +9,11 @@ public class Building : MonoBehaviour
     public GameObject panel; //inventory panel
     public GameObject invMenu;
     public GameObject moverMenu; //button which turn on/off p_inventory
+
     public bool deleteMod = false;
     private bool upInv = true;
+
+
     public void Buildingg(int num, int numC)
     {
         CellData cd0 = blueprint.cells[numC].GetComponent<CellData>();
@@ -43,6 +44,8 @@ public class Building : MonoBehaviour
         invMenu.GetComponent<RectTransform>().localPosition = new Vector3(invMenu.GetComponent<RectTransform>().localPosition.x,
             invMenu.GetComponent<RectTransform>().localPosition.y, 0);
     }
+
+
     public void ChangeDelMod()
     {
         if (deleteMod)

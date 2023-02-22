@@ -1,32 +1,26 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using System;
 
 public class SearchRoad : MonoBehaviour
 {
     private Blueprint bl;
-    public int[] road = new int[0];//тест
+
     public Cell23[] cells = new Cell23[70];
-
+    private GameObject[] points = new GameObject[0];                                //dev
     public GameObject point;
-    private void Start()
-    {
-        bl = GameObject.Find("Main Camera").GetComponent<Blueprint>();
-        Array.Resize(ref cells, bl.cells.Length);
-        for (int i = 0; i < cells.Length; i++) cells[i] = new Cell23();
-    }
+    public int[] road = new int[0];                                                 //dev  
     private bool showRoad = false;
-    private GameObject[] points = new GameObject[0];
-    private void Update() //повністю ткстовий (Q, W, show road)
+
+ 
+    private void Update()                                                           //all dev (Q, W, show road)           
     {
-        if (Input.GetKey(KeyCode.Q)) road = Search23lvl(3, 3, 10, 0); //тест
-        if (Input.GetKey(KeyCode.W)) road = Search23lvl(3, 3, 10, 1); //тест
+        if (Input.GetKey(KeyCode.Q)) road = Search23lvl(3, 3, 10, 0);               
+        if (Input.GetKey(KeyCode.W)) road = Search23lvl(3, 3, 10, 1);               
 
 
-        if (Input.GetKeyDown(KeyCode.Y)) showRoad = !showRoad;
-        if (showRoad)
-        {
+        if (Input.GetKeyDown(KeyCode.Y)) showRoad = !showRoad;                      
+        if (showRoad)                                                             
+        {                                                                          
             Array.Resize(ref points, road.Length);
             for (int i = 0; i < road.Length; i++)
             {
@@ -80,6 +74,7 @@ public class SearchRoad : MonoBehaviour
         if (numOfGoal > -1 && type == 1) return (createRoad(numOfGoal));
         return (new int[0]);
     }
+
     private int[] createRoad(int goal) //створення дороги на основі даних в клітинках 
     {
         int[] path = new int[0];
@@ -92,6 +87,8 @@ public class SearchRoad : MonoBehaviour
         Array.Reverse(path);
         return (path);
     }
+
+
     private void checkCell(int num, int vector, byte type) //зміна даних клітинки
     {
         if (cells[num + vector].number == 1) SaveDataCell23(num, vector, cells[num + vector].number + 1, checkHP(num)); //якщо попередня клітинка є першою, то мінімальний шлях наступної дорівнює шляху від 1 до 2
@@ -109,6 +106,13 @@ public class SearchRoad : MonoBehaviour
         cells[num].vector = vector;
         cells[num].number = number;
         cells[num].minPath = minPath;
+    }
+
+    private void Start()
+    {
+        bl = GameObject.Find("Main Camera").GetComponent<Blueprint>();
+        Array.Resize(ref cells, bl.cells.Length);
+        for (int i = 0; i < cells.Length; i++) cells[i] = new Cell23();
     }
 }
 [System.Serializable]

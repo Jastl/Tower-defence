@@ -1,46 +1,33 @@
-﻿using System.Collections;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Blueprint : MonoBehaviour
 {
+    public MenuManager MenuManager;
+    private Camera cam;
+
     public Items[] items = new Items[0];//все постройки
     public GameObject[] cells = new GameObject[0];//все клетки
     public GameObject net;//панель с клетками
+    public GameObject invPanel;//панель инвентаря
+    public GameObject inv2Panel;
+    public GameObject prefabSlot;//пример слота
 
     //primitive inventory
     public GameObject[] invSlots = new GameObject[0];//все слоты инвентаря
     public GameObject[] img = new GameObject[0];//картинки построек в инвентаре
     public int[] invId = new int[0];//айди построек в инвентаре
-    public bool[] empty = new bool[0];//использован ли объект
     public int[] tier = new int[0];//тир
     public int[] lvl = new int[0];//уровень
-
+    public bool[] empty = new bool[0];//использован ли объект
     //advanced inventory
     public GameObject[] inv2Slots = new GameObject[0];//всі слоти продвинутого інвентарю
     public GameObject[] img2 = new GameObject[0];
 
-    public GameObject invPanel;//панель инвентаря
-    public GameObject inv2Panel;
-    public GameObject prefabSlot;//пример слота
+    private bool loadingSlot;
 
-    public MenuManager MenuManager;
-    private Camera cam;
 
-    public void Start()
-    {
-        cam = Camera.main;
-        MenuManager = GameObject.Find("Main Camera").GetComponent<MenuManager>();
-        Array.Resize(ref cells, net.transform.childCount);//инициализация количества клеток
-        for (int i = 0; i < cells.Length; i++)//инициализация клеток
-        {
-            cells[i] = GameObject.Find("Cell (" + i + ')');//поиск клетки
-            cells[i].GetComponent<CellData>().idOfCell = i;
-        }
-    }
-    public void test()//выдать постройку с айди
+    public void test()//выдать постройку с айди   //dev
     {
         saveItem(1, 1);
         saveItem(3, 2);
@@ -51,28 +38,33 @@ public class Blueprint : MonoBehaviour
         saveItem(3, 1, 5);
         saveItem(3, 1, 4);
     }
-    private bool loadingSlot;
     public void saveItem(int savedId, int count)//сохранения объекта в инвентаре
     {
         for (int i = 0; i < count; i++)
         {
             loadingSlot = true;
+
             Array.Resize(ref invSlots, invSlots.Length + 1);//изменения розмера инвентаря
             Array.Resize(ref inv2Slots, invSlots.Length);
+
             invSlots[invSlots.Length - 1] = Instantiate(prefabSlot);//создания слота
             inv2Slots[inv2Slots.Length - 1] = Instantiate(prefabSlot);
+
+
             Array.Resize(ref invId, invSlots.Length);
             Array.Resize(ref empty, invSlots.Length);
             Array.Resize(ref img, invSlots.Length);
             Array.Resize(ref img2, invSlots.Length);
             Array.Resize(ref lvl, invSlots.Length);
             Array.Resize(ref tier, invSlots.Length);
+
             invSlots[invSlots.Length - 1].transform.SetParent(invPanel.transform);//присвоения слота к панели инвентаря
             inv2Slots[inv2Slots.Length - 1].transform.SetParent(inv2Panel.transform);//присвоения слота к панели prod инвентаря
             invId[invId.Length - 1] = savedId;//сохранения айди
             empty[empty.Length - 1] = true;
             lvl[lvl.Length - 1] = 1;//присвоения уровня
             tier[tier.Length - 1] = items[savedId].tier;//присвоения тира
+
             loadingSlot = false;
         }
     }
@@ -83,8 +75,7 @@ public class Blueprint : MonoBehaviour
     }
 
 
-
-    public void Update()
+    private void Update()
     {
         if (!loadingSlot)
         {
@@ -102,6 +93,7 @@ public class Blueprint : MonoBehaviour
                     invSlots[i].SetActive(true);//показ ячейки
                     invSlots[i].GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);//выравневания ячейки
                     IndexOfSlots index = invSlots[i].GetComponent<IndexOfSlots>();
+
                     index.level = lvl[i].ToString();
                     index.tier = tier[i].ToString();
                 }
@@ -111,6 +103,8 @@ public class Blueprint : MonoBehaviour
                     img[i].SetActive(false);
                 }
             }
+
+
             for (int i = 0; i < inv2Slots.Length; i++)
             {
                 if (MenuManager.buildMode || MenuManager.enabledInv) if (empty[i] == true)
@@ -125,6 +119,7 @@ public class Blueprint : MonoBehaviour
                     inv2Slots[i].GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
                     inv2Slots[i].name = "Slot (" + i + ")";
                     IndexOfSlots index = inv2Slots[i].GetComponent<IndexOfSlots>();
+
                     index.level = lvl[i].ToString();
                     index.tier = tier[i].ToString();
                 }
@@ -134,6 +129,19 @@ public class Blueprint : MonoBehaviour
                     img2[i].SetActive(false);
                 }
             }
+        }
+    }
+
+    private void Start()
+    {
+        cam = Camera.main;
+        MenuManager = GameObject.Find("Main Camera").GetComponent<MenuManager>();
+
+        Array.Resize(ref cells, net.transform.childCount);//инициализация количества клеток
+        for (int i = 0; i < cells.Length; i++)//инициализация клеток
+        {
+            cells[i] = GameObject.Find("Cell (" + i + ')');//поиск клетки
+            cells[i].GetComponent<CellData>().idOfCell = i;
         }
     }
 }

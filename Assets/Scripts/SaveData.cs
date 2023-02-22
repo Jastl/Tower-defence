@@ -1,18 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System;
+﻿using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
 public class SaveData : MonoBehaviour
 {
     private WavesData1 wavesData1;
-    private void Start()
-    {
-        wavesData1 = GameObject.Find("Main Camera").GetComponent<WavesData1>();
-    }
-
+    
 
     public void ToSaveData()
     {
@@ -54,6 +47,11 @@ public class SaveData : MonoBehaviour
             Debug.Log("Data deleted");
         }
         else Debug.Log("Data not exist");
+    }
+
+    private void Start()
+    {
+        wavesData1 = GameObject.Find("Main Camera").GetComponent<WavesData1>();
     }
 }
 [System.Serializable]

@@ -1,34 +1,35 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
 
 public class WavesData1 : MonoBehaviour
 {
-    public BW[] bw = new BW[0];
     private Enemys enemys;
     private ScreenRes screen;
     private Blueprint blueprint;
     private System.Random random = new System.Random();
+
+    public BW[] bw = new BW[0];
+
     public bool startWave = false;
     public int numBW;
 
-    public int[] countE = new int[0];
-    public int[] timerE = new int[0];
-    public bool[] finishE = new bool[0];
+    private int[] countE = new int[0];
+    private int[] timerE = new int[0];
+    private bool[] finishE = new bool[0];
 
-    public int countD = 0;
-    public int timerD = 0;
-    public bool finishD = false;
-    public int[] DNow = new int[0];
+    private int countD = 0;
+    private int timerD = 0;
+    private bool finishD = false;
+    private int[] DNow = new int[0];
 
-    public int countL = 0;
-    public int timerL = 0;
-    public bool finishL = false;
+    private int countL = 0;
+    private int timerL = 0;
+    private bool finishL = false;
 
     public int countM = 0;
-    public int timerM = 0;
-    public bool finishM = false;
+    private int timerM = 0;
+    private bool finishM = false;
     private void Start()
     {
         enemys = GameObject.Find("Main Camera").GetComponent<Enemys>();
@@ -63,8 +64,8 @@ public class WavesData1 : MonoBehaviour
                     {
                         countE[i]++;
                         GameObject enemy = Instantiate(enemys.enemysData[bw[numBW].mw[countM].lw[countL].dw[countD].idEnemys].prefab);
-                        enemy.transform.position = new Vector2(UnityEngine.Random.Range
-                            (blueprint.cells[0].transform.position.x, blueprint.cells[6].transform.position.x), blueprint.cells[0].transform.position.y);
+                        enemys.AddEnemy(enemy);
+                        enemy.transform.position = new Vector2(UnityEngine.Random.Range(blueprint.cells[0].transform.position.x, blueprint.cells[6].transform.position.x), blueprint.cells[0].transform.position.y);
                         timerE[i] = 0;
                         finishE[i] = false;
                     }

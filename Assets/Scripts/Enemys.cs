@@ -1,19 +1,25 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System;
 
 public class Enemys : MonoBehaviour
 {
     public GameObject[] enemys = new GameObject[0];
     public DataOfEnemy[] enemysData = new DataOfEnemy[0];
-    private void Update()
+
+
+    public void AddEnemy(GameObject enemy)
     {
-        enemys = GameObject.FindGameObjectsWithTag("Enemy"); //
         for (int i = 0; i < enemys.Length; i++)
         {
             if (enemys[i] == null)
             {
-
+                enemys[i] = enemy;
+                break;
+            }
+            if (i == enemys.Length - 1)
+            {
+                Array.Resize(ref enemys, enemys.Length + 1);
+                enemys[enemys.Length - 1] = enemy;
             }
         }
     }

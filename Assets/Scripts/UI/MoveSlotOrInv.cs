@@ -1,8 +1,6 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System;
 
 public class MoveSlotOrInv : MonoBehaviour
 {
@@ -13,6 +11,7 @@ public class MoveSlotOrInv : MonoBehaviour
 
     //initialized in engine
     public GameObject panel;//панель з слотами
+    private GridLayoutGroup panelGLG;
     private RectTransform panelRT;
     public GameObject invMenu;
 
@@ -21,10 +20,10 @@ public class MoveSlotOrInv : MonoBehaviour
     private Vector3 mousePos; //position of mouse
     private int nps; //nummber of pressed slot
     private int countCell;
-    public float timer = 0f;//таймер
+    private float timer = 0f;//таймер
     private float delta;//різниця х координат курсора і панелі
     private bool pressed = false;
-    public bool verticalyMovement = false;//рух по вертикалі?    
+    private bool verticalyMovement = false;//рух по вертикалі?    
     private bool build = false;
     private bool onCell = false;
 
@@ -56,9 +55,10 @@ public class MoveSlotOrInv : MonoBehaviour
             onCell = false;
             building.MoveInv(true, true);
         }
+
+
         if (pressed) //moving slot's on verticaly
         {
-            StartCoroutine(timeOfPress());//запуск таймера
             if (cam.WorldToScreenPoint(gops.GetComponent<RectTransform>().transform.position).y +
             gops.GetComponent<RectTransform>().sizeDelta.y / 2 < mousePos.y || gops.GetComponent<RectTransform>().transform.position.y -
               gops.GetComponent<RectTransform>().sizeDelta.y / 2 > mousePos.y) build = true;//якщо обєкт вийшов за верхню/нижню межу слота
@@ -95,18 +95,17 @@ public class MoveSlotOrInv : MonoBehaviour
                 delta = panel.transform.position.x - cam.ScreenToWorldPoint(mousePos).x;
             }
         }
+
+
         float posX = cam.WorldToScreenPoint(panelRT.position).x;
-        if (posX > panelRT.sizeDelta.x / 2)
-            panelRT.position = new Vector2(cam.ScreenToWorldPoint(new Vector2(panelRT.sizeDelta.x / 2, 0)).x,
-                panelRT.position.y);
-        if (posX < panelRT.sizeDelta.x / -2 + sr.widthScreen)
-            panelRT.position = new Vector2(cam.ScreenToWorldPoint(new Vector2(panelRT.sizeDelta.x / -2 + (float)sr.widthScreen, 0)).x,
-                panelRT.position.y);
+        if (posX > panelRT.sizeDelta.x / 2) panelRT.position = new Vector2(cam.ScreenToWorldPoint(new Vector2(panelRT.sizeDelta.x / 2, 0)).x, panelRT.position.y);
+        if (posX < panelRT.sizeDelta.x / -2 + sr.widthScreen) panelRT.position = new Vector2(cam.ScreenToWorldPoint(new Vector2(panelRT.sizeDelta.x / -2 + (float)sr.widthScreen, 0)).x, panelRT.position.y);
         panelRT.localPosition = new Vector3(panelRT.localPosition.x, panelRT.localPosition.y, 0);
 
+
         //change dSize of panel
-        float wc = panel.GetComponent<GridLayoutGroup>().cellSize.x; //width of cell
-        float pc = panel.GetComponent<GridLayoutGroup>().spacing.x; //padding of cells
+        float wc = panelGLG.cellSize.x; //width of cell
+        float pc = panelGLG.GetComponent<GridLayoutGroup>().spacing.x; //padding of cells
         ushort count = 0;
         foreach (bool a in blueprint.empty)
         {
@@ -116,13 +115,20 @@ public class MoveSlotOrInv : MonoBehaviour
         else panelRT.sizeDelta = new Vector2(wc * (count / 2) + pc * (count / 2) + 2 * pc + wc, panelRT.sizeDelta.y);
         if (panelRT.sizeDelta.x < sr.widthScreen) panelRT.sizeDelta = new Vector2((float)sr.widthScreen, panelRT.sizeDelta.y); //minimal width of inv panel
     }
+
+
     IEnumerator timeOfPress()//таймер
     {
         yield return new WaitForSeconds(0.01f);
         timer = timer + 10f;
     }
+    private void FixedUpdate()
+    {
+        StartCoroutine(timeOfPress());//запуск таймера
+    }
     private void Start()
     {
+        panelGLG = panel.GetComponent<GridLayoutGroup>();
         panelRT = panel.GetComponent<RectTransform>();
         cam = Camera.main;
     }

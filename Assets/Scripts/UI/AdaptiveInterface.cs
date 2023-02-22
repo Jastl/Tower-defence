@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class AdaptiveInterface : MonoBehaviour
 {
@@ -8,11 +6,7 @@ public class AdaptiveInterface : MonoBehaviour
     private Camera cam;
 
     public GameObject[] widthScale = new GameObject[0];
-    private void Start()
-    {
-        sr = GameObject.Find("Main Camera").GetComponent<ScreenRes>();
-        cam = Camera.main;
-    }
+
     public void useAI()
     {
         foreach (GameObject go in widthScale) widthScaleF(go);
@@ -24,5 +18,10 @@ public class AdaptiveInterface : MonoBehaviour
         RectTransform uiRT = uiO.GetComponent<RectTransform>();
         uiRT.localScale = new Vector2(uiRT.localScale.x * deltaSizeX, uiRT.localScale.y * deltaSizeX);
         uiRT.localPosition = new Vector2(uiRT.localPosition.x * deltaSizeX, uiRT.localPosition.y * deltaSizeY);
+    }
+    private void Start()
+    {
+        sr = GameObject.Find("Main Camera").GetComponent<ScreenRes>();
+        cam = Camera.main;
     }
 }

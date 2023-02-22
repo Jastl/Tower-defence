@@ -1,15 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Inerfaces : MonoBehaviour
 {
-    //load new map
     public GameObject canvas;
     public Transform[] interfaces;
     public GameObject panel;
     public GameObject warringLoadNewMap;
     public GameObject pickMap;
+
     private void Update()
     {
         panel.SetActive(false);

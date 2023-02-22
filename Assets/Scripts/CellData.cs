@@ -1,25 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class CellData : MonoBehaviour
 {
-    public bool busy = false;
+    private Building building;
+
+    public GameObject build = null;
     public int id = 0; //id of obj in the cell
     public int idOfCell;
     public int lvl = 0; //lvl of obj in the cell
     public int numberOfSlot = 0; //number of obj in inv
-    public GameObject build = null;
-    private Building building;
     public float damage = 10;
     public float hp;
     public float maxHP;
+    public bool busy = false;
+    
 
-    private void Start()
-    {
-        building = GameObject.Find("Main Camera").GetComponent<Building>();
-    }
     private void Update()
     {
         damage = 10;
@@ -36,8 +31,14 @@ public class CellData : MonoBehaviour
         hp = hp - dmg;
         if (hp <= 0) building.DeleteBuild(this.gameObject);
     }
+
+
     private void OnMouseDown()
     {
         if (building.deleteMod) building.DeleteBuild(this.gameObject);
+    }
+    private void Start()
+    {
+        building = GameObject.Find("Main Camera").GetComponent<Building>();
     }
 }

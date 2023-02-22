@@ -1,29 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using System;
 
 public class InventoryUI : MonoBehaviour
 {
-    public ScreenRes sr;
+    private ScreenRes sr;
     public Blueprint blueprint;
-    public Camera cam;
+    private Camera cam;
 
     public GameObject invPanel;
     public RectTransform invPanelRT;
+
+    private Transform slot;
+    private Vector3 posClick;
     public int currentSortType = 0;
     public int currentSortData = 0;
-
-    private Transform slot; 
-    private Vector3 posClick;
+    private float delta;
     private bool pressed = false;
-    public float delta;
-    private void Start()
-    {
-        cam = Camera.main;
-        invPanelRT = invPanel.gameObject.GetComponent<RectTransform>();
-        sr = GameObject.Find("Main Camera").GetComponent<ScreenRes>();
-    }
+    private bool move = false; //player begin move
 
     public void OnClick(GameObject pressedSlot) //finding slot
     {
@@ -40,15 +33,19 @@ public class InventoryUI : MonoBehaviour
             }
         }
     }
+
+
     public void Sorting(int typeOfItem) //sorting items in inventory
     {
         for (int i = 0; i < blueprint.invId.Length; i++)
         {
             blueprint.inv2Slots[i].SetActive(false);
+
             if (typeOfItem == 0 && blueprint.items[blueprint.invId[i]].type == 0) blueprint.inv2Slots[i].SetActive(true);
             if (typeOfItem == 1 && blueprint.items[blueprint.invId[i]].type == 1) blueprint.inv2Slots[i].SetActive(true);
             if (typeOfItem == 2 && blueprint.items[blueprint.invId[i]].type == 2) blueprint.inv2Slots[i].SetActive(true);
             if (typeOfItem == 3) blueprint.inv2Slots[i].SetActive(true);
+
             if (blueprint.empty[i] == false) blueprint.inv2Slots[i].SetActive(false);
             SetHeightIventory();
             currentSortType = typeOfItem;
@@ -59,11 +56,14 @@ public class InventoryUI : MonoBehaviour
         Sorting(typeOfItem);
         GameObject[] slots = new GameObject[0];
         Array.Resize(ref slots, blueprint.inv2Slots.Length);
+
         for (int i = 0; i < slots.Length; i++) slots[i] = blueprint.inv2Slots[i];
         int[] lvl = new int[0];
         Array.Resize(ref lvl, blueprint.lvl.Length);
+
         if (type == "lvl") for (int i = 0; i < lvl.Length; i++) lvl[i] = blueprint.lvl[i];
         else for (int i = 0; i < lvl.Length; i++) lvl[i] = blueprint.tier[i];
+        
         for (int i = 0; i < lvl.Length; i++)//bubble sort
         {
             for (int j = 0; j < lvl.Length - 1; j++)
@@ -79,17 +79,20 @@ public class InventoryUI : MonoBehaviour
                 }
             }
         }
+
         if (side == 1) //напрям сортування
         {
             Array.Reverse(slots);
             Array.Reverse(lvl);
         }
+
         for (int i = 0; i < lvl.Length; i++)
         {
             slots[i].transform.SetSiblingIndex(i);
         }
-
     }
+
+
     public void SetHeightIventory()
     {
         int countOfSlots = 0;
@@ -98,7 +101,7 @@ public class InventoryUI : MonoBehaviour
         if (invPanelRT.sizeDelta.y < sr.SizeH(1770)) invPanelRT.sizeDelta = new Vector2(invPanelRT.sizeDelta.x, sr.SizeH(1770));
         invPanelRT.localPosition = new Vector2(invPanelRT.localPosition.x, (float)(invPanelRT.sizeDelta.y / -2 + sr.heightScreen / 2 - sr.SizeH(150)));
     }
-    public bool move = false; //player begin move
+
     private void Update()
     {
         if (Input.GetMouseButtonUp(0) && pressed)
@@ -124,6 +127,12 @@ public class InventoryUI : MonoBehaviour
                 invPanelRT.localPosition = new Vector3(invPanelRT.localPosition.x, invPanelRT.localPosition.y, 0);
             }
         }
+    }
+    private void Start()
+    {
+        cam = Camera.main;
+        invPanelRT = invPanel.gameObject.GetComponent<RectTransform>();
+        sr = GameObject.Find("Main Camera").GetComponent<ScreenRes>();
     }
 }
 

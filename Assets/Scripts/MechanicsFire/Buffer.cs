@@ -1,12 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Buffer : MonoBehaviour
 {
-    public int idCell;
     private Blueprint blueprint;
 
+
+    public int idCell;
+    public float health = 1;
+    public float healthRecovery = 0;
     public float damage;
 
     public float damageB = 1;
@@ -14,20 +15,13 @@ public class Buffer : MonoBehaviour
     public float speedOfReload = 1;
     public float distance = 1;
 
-    public float health = 1;
-    public float healthRecovery = 0;
-
-
     public float damageH;
     public float speedOfBulletH;
     public float speedOfReloadH;
     public float distanceH;
     public float healthH;
     public float healthRecoveryH;
-    private void Start()
-    {
-        blueprint = GameObject.Find("Main Camera").GetComponent<Blueprint>();
-    }
+
 
     private void Update()
     {
@@ -38,18 +32,21 @@ public class Buffer : MonoBehaviour
             else cells[0] = this.gameObject.GetComponent<Buffer>();
         }
         else cells[0] = this.gameObject.GetComponent<Buffer>();
+
         if (idCell % 7 != 6) 
         { 
             if (blueprint.cells[idCell + 1].GetComponent<CellData>().build != null) cells[1] = blueprint.cells[idCell + 1].GetComponent<CellData>().build.GetComponent<Buffer>();
             else cells[1] = this.gameObject.GetComponent<Buffer>();
         }
         else cells[1] = this.gameObject.GetComponent<Buffer>();
+
         if (idCell > 6) 
         { 
             if (blueprint.cells[idCell - 7].GetComponent<CellData>().build != null) cells[2] = blueprint.cells[idCell - 7].GetComponent<CellData>().build.GetComponent<Buffer>();
             else cells[2] = this.gameObject.GetComponent<Buffer>();
         }
         else cells[2] = this.gameObject.GetComponent<Buffer>();
+
         if (idCell < 63) 
         { 
             if (blueprint.cells[idCell + 7].GetComponent<CellData>().build != null) cells[3] = blueprint.cells[idCell + 7].GetComponent<CellData>().build.GetComponent<Buffer>();
@@ -63,5 +60,9 @@ public class Buffer : MonoBehaviour
         distance = 1 + cells[0].distanceH + cells[1].distanceH + cells[2].distanceH + cells[3].distanceH;
         health = 1 + cells[0].healthH + cells[1].healthH + cells[2].healthH + cells[3].healthH;
         healthRecovery = cells[0].healthRecoveryH + cells[1].healthRecoveryH + cells[2].healthRecoveryH + cells[3].healthRecoveryH;
+    }
+    private void Start()
+    {
+        blueprint = GameObject.Find("Main Camera").GetComponent<Blueprint>();
     }
 }
