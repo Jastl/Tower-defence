@@ -14,7 +14,8 @@ public class MenuManager : MonoBehaviour
     public Building building;
     private InventoryUI invCode;
     private ScreenRes sr;
-    private Camera cam;
+    private InventoryUI IU;
+    private SortLvlTier slt;
     public void startBuild(bool x) //t - enable inventory / f - disable inventory
     {
         buildMode = !buildMode;
@@ -46,6 +47,9 @@ public class MenuManager : MonoBehaviour
         inventory2.SetActive(!inventory2.activeSelf);
         invCode.Sorting(3);
         sr.SetActiveColiders();
+        IU.currentSortType = 3;
+        slt.SortLvl();
+        slt.SortTier();
 }
 
     private void Update()
@@ -54,9 +58,10 @@ public class MenuManager : MonoBehaviour
     }
     private void Start()
     {
-        cam = Camera.main;
         sr = GameObject.Find("Main Camera").GetComponent<ScreenRes>();
         invCode = GameObject.Find("Main Camera").GetComponent<InventoryUI>();
+        IU = GameObject.Find("Main Camera").GetComponent<InventoryUI>();
+        slt = GameObject.Find("Main Camera").GetComponent<SortLvlTier>();
         Array.Resize(ref buildNet, arrays.cells.Length);
         for (int i = 0; i < buildNet.Length; i++)
         {

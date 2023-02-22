@@ -79,13 +79,14 @@
     <Compile Include="Assets\Scripts\SaveData.cs" />
     <Compile Include="Assets\Scripts\SearchRoad.cs" />
     <Compile Include="Assets\Scripts\TEST.cs" />
-    <Compile Include="Assets\Scripts\Test1.cs" />
+    <Compile Include="Assets\Scripts\UI\AdaptiveInterface.cs" />
     <Compile Include="Assets\Scripts\UI\Inerfaces.cs" />
     <Compile Include="Assets\Scripts\UI\InventoryUI.cs" />
     <Compile Include="Assets\Scripts\UI\MenuManager.cs" />
     <Compile Include="Assets\Scripts\UI\MoveSlotOrInv.cs" />
     <Compile Include="Assets\Scripts\UI\PressDetSlot.cs" />
     <Compile Include="Assets\Scripts\UI\ScreenRes.cs" />
+    <Compile Include="Assets\Scripts\UI\SortLvlTier.cs" />
     <Compile Include="Assets\Scripts\WavesData1.cs" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />

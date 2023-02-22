@@ -46,6 +46,10 @@ public class Blueprint : MonoBehaviour
         saveItem(3, 2);
         saveItem(4, 20);
         saveItem(5, 4);
+        saveItem(1, 1, 5);
+        saveItem(1, 1, 4);
+        saveItem(3, 1, 5);
+        saveItem(3, 1, 4);
     }
     private bool loadingSlot;
     public void saveItem(int savedId, int count)//сохранения объекта в инвентаре
@@ -72,6 +76,14 @@ public class Blueprint : MonoBehaviour
             loadingSlot = false;
         }
     }
+    public void saveItem(int savedId, int count, int lvl1)
+    {
+        saveItem(savedId, count);
+        lvl[lvl.Length - 1] = lvl1;
+    }
+
+
+
     public void Update()
     {
         if (!loadingSlot)
@@ -83,7 +95,8 @@ public class Blueprint : MonoBehaviour
                     if (img[i] == null)//подключения картинки
                     {
                         img[i] = Instantiate(items[invId[i]].image);
-                        img[i].transform.SetParent(invPanel.transform);
+                        img[i].transform.SetParent(invSlots[i].transform);
+                        img[i].GetComponent<RectTransform>().localScale = new Vector2(1, 1);
                     }
                     img[i].transform.position = invSlots[i].transform.position;//позиционирования картинки по слоту
                     invSlots[i].SetActive(true);//показ ячейки
@@ -110,6 +123,7 @@ public class Blueprint : MonoBehaviour
                     }
                     img2[i].transform.position = inv2Slots[i].transform.position;
                     inv2Slots[i].GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+                    inv2Slots[i].name = "Slot (" + i + ")";
                     IndexOfSlots index = inv2Slots[i].GetComponent<IndexOfSlots>();
                     index.level = lvl[i].ToString();
                     index.tier = tier[i].ToString();

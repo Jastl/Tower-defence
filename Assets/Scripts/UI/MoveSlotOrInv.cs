@@ -7,28 +7,40 @@ using System;
 public class MoveSlotOrInv : MonoBehaviour
 {
     public Blueprint blueprint;
-    private int nps; //nummber of pressed slot
-    private GameObject gops; //game object of pressed slot
-    private bool pressed = false;
-    private Vector3 mousePos; //position of mouse
-    public bool verticalyMovement = false;//рух по вертикалі?
-    public float timer = 0f;//таймер
-    public GameObject panel;//панель з слотами
-    private RectTransform panelRT;
-    private float delta;//різниця х координат курсора і панелі
-    private GameObject spiritOfBuild = null;
     public Building building;
     public ScreenRes sr;
-    private bool onCell = false;
-    private int countCell;
-    public GameObject invMenu;
     private Camera cam;
-    private void Start()
-    {
-        panelRT = panel.GetComponent<RectTransform>();
-        cam = Camera.main;
-    }
+
+    //initialized in engine
+    public GameObject panel;//панель з слотами
+    private RectTransform panelRT;
+    public GameObject invMenu;
+
+    private GameObject gops; //game object of pressed slot
+    private GameObject spiritOfBuild = null;
+    private Vector3 mousePos; //position of mouse
+    private int nps; //nummber of pressed slot
+    private int countCell;
+    public float timer = 0f;//таймер
+    private float delta;//різниця х координат курсора і панелі
+    private bool pressed = false;
+    public bool verticalyMovement = false;//рух по вертикалі?    
     private bool build = false;
+    private bool onCell = false;
+
+    public void OnClick(GameObject go)//*натиск*
+    {
+        for (int i = 0; i < blueprint.invSlots.Length; i++)//знаходження натиснутого обєкту
+        {
+            if (blueprint.invSlots[i] == go)
+            {
+                nps = i;
+                gops = blueprint.invSlots[i];
+                pressed = true;
+                break;
+            }
+        }
+    }
     private void Update()
     {
         mousePos = Input.mousePosition;//позиція курсору(screenPoint)
@@ -56,6 +68,7 @@ public class MoveSlotOrInv : MonoBehaviour
                 if (spiritOfBuild != null)
                 {
                     spiritOfBuild.transform.position = new Vector3(cam.ScreenToWorldPoint(mousePos).x, cam.ScreenToWorldPoint(mousePos).y, 0);
+                    spiritOfBuild.transform.SetParent(invMenu.transform);
                 }
                 else spiritOfBuild = Instantiate(blueprint.items[blueprint.invId[nps]].image);
                 verticalyMovement = true;
@@ -103,22 +116,14 @@ public class MoveSlotOrInv : MonoBehaviour
         else panelRT.sizeDelta = new Vector2(wc * (count / 2) + pc * (count / 2) + 2 * pc + wc, panelRT.sizeDelta.y);
         if (panelRT.sizeDelta.x < sr.widthScreen) panelRT.sizeDelta = new Vector2((float)sr.widthScreen, panelRT.sizeDelta.y); //minimal width of inv panel
     }
-    public void OnClick(GameObject go)//*натиск*
-    {
-        for (int i = 0; i < blueprint.invSlots.Length; i++)//знаходження натиснутого обєкту
-        {
-            if (blueprint.invSlots[i] == go)
-            {
-                nps = i;
-                gops = blueprint.invSlots[i];
-                pressed = true;
-                break;
-            }
-        }
-    }
     IEnumerator timeOfPress()//таймер
     {
         yield return new WaitForSeconds(0.01f);
         timer = timer + 10f;
+    }
+    private void Start()
+    {
+        panelRT = panel.GetComponent<RectTransform>();
+        cam = Camera.main;
     }
 }
